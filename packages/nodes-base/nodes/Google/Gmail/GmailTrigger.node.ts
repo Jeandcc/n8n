@@ -240,12 +240,12 @@ export class GmailTrigger implements INodeType {
 						description: "Whether the email's attachments will be downloaded",
 					},
 					{
-						displayName: 'Include Self-Sent Archived Emails',
+						displayName: 'Include Auto-Archived Self-Sent Emails',
 						name: 'includeSelfSentArchivedEmails',
 						type: 'boolean',
 						default: false,
 						description:
-							'Whether to include self-sent emails that were archived and no longer have the INBOX label',
+							'Whether to include self-sent emails that Gmail auto-archives immediately, so they no longer have the INBOX label by the time the trigger polls',
 						displayOptions: {
 							show: {
 								'@version': [{ _cnd: { gte: 1.3 } }],
