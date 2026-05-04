@@ -245,7 +245,7 @@ export class GmailTrigger implements INodeType {
 						type: 'boolean',
 						default: false,
 						description:
-							'Whether to include self-sent emails that Gmail auto-archives immediately, so they no longer have the INBOX label by the time the trigger polls',
+							'Whether self-sent emails that have been archived will be returned',
 						displayOptions: {
 							show: {
 								'@version': [{ _cnd: { gte: 1.3 } }],
