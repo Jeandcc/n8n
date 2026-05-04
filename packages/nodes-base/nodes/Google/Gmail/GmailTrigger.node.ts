@@ -239,6 +239,19 @@ export class GmailTrigger implements INodeType {
 						default: false,
 						description: "Whether the email's attachments will be downloaded",
 					},
+					{
+						displayName: 'Include Self-Sent Archived Emails',
+						name: 'includeSelfSentArchivedEmails',
+						type: 'boolean',
+						default: false,
+						description:
+							'Whether to include self-sent emails that were archived and no longer have the INBOX label',
+						displayOptions: {
+							show: {
+								'@version': [{ _cnd: { gte: 1.3 } }],
+							},
+						},
+					},
 				],
 			},
 		],
@@ -349,6 +362,7 @@ export class GmailTrigger implements INodeType {
 		} else {
 			includeDrafts = filters.includeDrafts ?? true;
 		}
+		const includeSelfSentArchivedEmails = options.includeSelfSentArchivedEmails ?? false;
 
 		const fetchAndProcessMessage = async (
 			messageId: string,
@@ -372,6 +386,7 @@ export class GmailTrigger implements INodeType {
 			}
 			if (
 				node.typeVersion > 1.2 &&
+				!includeSelfSentArchivedEmails &&
 				fullMessage.labelIds?.includes('SENT') &&
 				!fullMessage.labelIds?.includes('INBOX')
 			) {
